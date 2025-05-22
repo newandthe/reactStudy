@@ -126,3 +126,84 @@ export const Counter = () => {
             	person={{ name: '짐코딩', age: 20 }}
             />
 
+
+/* import React from 'react' 에 대해서 */
+    * JSX의 새로운 변환
+    import React from 'react'; 를 사용하는 이유는 React 라이브러리 내에서 JSX를 컴파일 할 수 있도록 하기 위함이 가장 큰 이유.
+
+
+    function Counter(props) {
+        return (
+            <div>
+                count
+            </div>
+        );
+    }
+
+    는 다음과 같이 변환
+
+    function Counter(props) {
+        return React.createElement('div', null, 'count');
+    }
+
+    여기서 추가로 React 17 부터 JSX 트랜스 폼이 도입되며 더이상 React를 명시적으로 import할 필요가 없어졌음.
+
+    주의) React 17 이하 버전인 경우 및 JSX 트랜스포 설정하지 않은 경우 import React from 'react'; 문장 필수 요소
+
+
+/* 컴포넌트에 props 전달 */
+리액트 컴포넌트는 props를 이용해 서로 통신
+객체, 배열, 함수를 포함한 모든 JS 값 전달 가능
+
+예시)
+<img
+  className="avatar"
+  src="https://i.imgur.com/1bX5QH6.jpg"
+  alt="Lin Lanying"
+  width={100}
+  height={100}
+/>
+이미지 태그에 전달할 수 있는 props는 미리 정의 되어있음.
+
+하지만 개인이 생성한 어떤 컴포넌트는 props를 전달 가능.
+
+function Avatar({ person, size }) {  // ...}
+
+ * 구조분해 할당
+function Avatar(props) {
+	let person = props.person;
+	let size = props.size;  // ...
+}
+
+* JSX spread 문법으로 props 전달하기
+function Profile({ person, size, isSepia, thickBorder }) {
+  return (
+    <div className="card">
+      <Avatar
+        person={person}
+        size={size}
+        isSepia={isSepia}
+        thickBorder={thickBorder}
+      />
+    </div>
+  );
+}
+
+=>
+
+function Profile(props) {
+  return (
+    <div className="card">
+      <Avatar {...props} />     /* ...props내에 JS 전개구문과 유사하게 props 내부에 담겨있음 */
+    </div>
+  );
+}
+
+
+
+ * 유의사항
+    이러한 **spread 문법은 제한적으로 사용하세요**. 다른 모든 컴포넌트에 이 구문을 사용한다면 문제가 있는 것입니다.
+
+    1. **가독성 저하**: 코드가 읽기 어려워질 수 있어요. 어떤 속성이 어떤 값인지 바로 이해하기 힘들어질 수 있습니다.
+    2. **버그 발생 가능성 증가**: 예기치 않은 속성이 전달될 수 있어요. 특히 많은 props가 있는 경우, 불필요한 속성이 전달될 위험이 커집니다.
+    3. **리팩토링 어려움**: 컴포넌트를 분할하거나 재사용할 때, props를 명시적으로 전달하지 않으면 나중에 문제가 생길 수 있어요.
