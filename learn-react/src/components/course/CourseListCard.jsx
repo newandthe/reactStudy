@@ -4,6 +4,8 @@ import Card from "../Card.jsx";
 
 export default function CourseListCard({title, items}) {
 
+  const lastIndex = items.length - 1;
+
   /* const [course1, course2, course3] = items; */
 
   /*
@@ -52,7 +54,7 @@ export default function CourseListCard({title, items}) {
           { items.map((item, index) => (
             <Fragment key={item.id}>  {/* 여러개의 DOM 노드를 렌더링 해야하는경우 Fragment로 그룹화하여 사용 */}
               <CourseItem{...item} />
-              {index !== items.length - 1 && (<hr className="divider" />)}  {/* 조건부 랜더링으로 마지막 인덱스가 아닌 경우에만 노출 */}
+              {index !== lastIndex && (<hr className="divider" />)}  {/* 조건부 랜더링으로 마지막 인덱스가 아닌 경우에만 노출 */}
             </Fragment>
           ) )}
           {/*<CourseItem {...course1} />*/}
