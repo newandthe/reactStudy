@@ -1,9 +1,10 @@
+import { Fragment } from "react";
 import CourseItem from "./CourseItem.jsx";
 import Card from "../Card.jsx";
 
-export default function CourseListCard({items}) {
+export default function CourseListCard({title, items}) {
 
-  const [course1, course2, course3] = items;
+  /* const [course1, course2, course3] = items; */
 
   /*
   const course1 = {
@@ -46,11 +47,17 @@ export default function CourseListCard({items}) {
     </div>
     */
     <>
-      <Card title="강의 목록">
+      <Card title={title}>
         <div className="courses">
-          <CourseItem {...course1} />
-          <CourseItem {...course2} />
-          <CourseItem {...course3} />
+          { items.map((item, index) => (
+            <Fragment key={item.id}>  {/* 여러개의 DOM 노드를 렌더링 해야하는경우 Fragment로 그룹화하여 사용 */}
+              <CourseItem{...item} />
+              {index !== items.length - 1 && (<hr className="divider" />)}  {/* 조건부 랜더링으로 마지막 인덱스가 아닌 경우에만 노출 */}
+            </Fragment>
+          ) )}
+          {/*<CourseItem {...course1} />*/}
+          {/*<CourseItem {...course2} />*/}
+          {/*<CourseItem {...course3} />*/}
         </div>
       </Card>
     </>

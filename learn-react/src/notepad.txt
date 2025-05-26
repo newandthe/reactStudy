@@ -218,3 +218,10 @@ function Profile(props) {
     result = "" && "foo";       // result 에 "" 할당
     result = 2 && 0;            // result 에 0 할당
     result = "foo" && 4;        // result 에 4 할당
+
+* 리스트 랜더링
+리액트에서 유사한 컴포넌트를 N개 표시하고 싶은 경우 사용.
+=> map(), filter()를 사용하여 배열 필터링 & 컴포넌트 배열 변환하여 랜더링
+=> JS의 Array API 참고
+주의) 리스트에서는 unique key를 통해 항목을 지정해야한다.
+
