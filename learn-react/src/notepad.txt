@@ -233,4 +233,11 @@ Client의 클릭, input 키보드 타이핑 등 상호작용에 따라 실행되
  ** 주의사항 (이벤트 핸들러는 함수를 실행하면 안된다. !! -> 랜더링 시에 함수가 바로 호출되어버림.)
     + 이벤트에 이벤트 핸들러 함수로 전달하게되면 첫번 째 매개변수로 event 객체를 받게 됨. 부모에서도 필요하다면 event 객체를 props로 전달하기
 
+* 이벤트 전파 (버블링 & 캡쳐링 기본지식 필수)
+ - onClick + Capture => onClickCapture로 이벤트 작성시 캡쳐링 모드로 이벤트 전파
+ - event 객체를 props로 전달 받아 event.stopPropagation();을 수행 시 버블링 전파 차단
+ - 기본 동작을 막을 수 있는 event.preventDefault(); 또한 존재 (submit 시)
+
+https://gymcoding.notion.site/b154e07433604fa9b1e21ce03daf0ae1
+
 

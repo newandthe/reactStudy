@@ -1,7 +1,7 @@
-function HeartIconBtn({onHeartClick, isFavorite = false}) {
+function HeartIconBtn({onClick, isFavorite = false}) {
 
   return (
-    <button className="btn" onClick={onHeartClick}>
+    <button className="btn" onClick={(e) => onClick(e)}>
     {/*<button className="btn" onClick={() => alert("간단한 경우 이벤트 핸들러의 인라인 방식 예제")}>*/}
       {/*
       {
@@ -30,12 +30,18 @@ function LinkIconBtn({link}) {
 
 export default function CourseItem({title, description, thumbnail, isFavorite, link}) {
 
-  function handleFavorite() {
+  function handleFavorite(e) {
+    e.stopPropagation();
     alert(isFavorite ? '좋아요' : '모르겠어요');
+  }
+
+  function handleItemClick() {
+    alert('item click!');
+    open(link, '_blank');
   }
   
   return (
-    <article className="course">
+    <article className="course" onClick={handleItemClick}>
       <img className="course__img" src={thumbnail} alt="강의 이미지"/>
       <div className="course__body">
         <div className="course__title">{title}</div>
@@ -43,7 +49,7 @@ export default function CourseItem({title, description, thumbnail, isFavorite, l
       </div>
 
       <div className="course__icons">
-          <HeartIconBtn isFavorite={isFavorite} onHeartClick={handleFavorite} />    {/* 핸들러 예시 */}
+          <HeartIconBtn isFavorite={isFavorite} onClick={handleFavorite} />    {/* 핸들러 예시 */}
           {
             link && <LinkIconBtn link={link} />   /* 논리 연산자에 의해 link가 존재해야 a 태그(LinkIconBtn 컴포넌트) 랜더링 */
           }
