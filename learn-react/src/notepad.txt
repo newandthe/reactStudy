@@ -225,3 +225,12 @@ function Profile(props) {
 => JS의 Array API 참고
 주의) 리스트에서는 unique key를 통해 항목을 지정해야한다.
 
+* 이벤트 핸들러
+Client의 클릭, input 키보드 타이핑 등 상호작용에 따라 실행되는 사용자 정의함수
+=> React에서는 JSX에 이벤트 핸들러 추가 가능
+=> React DOM 컴포넌트 : React는 브라우저에 내장된 모든 HTML과 SVG를 지원
+=> 참고) https://ko.react.dev/reference/react-dom/components
+ ** 주의사항 (이벤트 핸들러는 함수를 실행하면 안된다. !! -> 랜더링 시에 함수가 바로 호출되어버림.)
+    + 이벤트에 이벤트 핸들러 함수로 전달하게되면 첫번 째 매개변수로 event 객체를 받게 됨. 부모에서도 필요하다면 event 객체를 props로 전달하기
+
+

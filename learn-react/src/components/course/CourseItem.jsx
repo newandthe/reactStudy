@@ -1,7 +1,8 @@
-function HeartIconBtn({ isFavorite = false}) {
+function HeartIconBtn({onHeartClick, isFavorite = false}) {
 
   return (
-    <button className="btn">
+    <button className="btn" onClick={onHeartClick}>
+    {/*<button className="btn" onClick={() => alert("간단한 경우 이벤트 핸들러의 인라인 방식 예제")}>*/}
       {/*
       {
         isFavorite ? (
@@ -15,10 +16,9 @@ function HeartIconBtn({ isFavorite = false}) {
     </button>
   )
 
-
 }
 
-function LinkIconBtn({ link }) {
+function LinkIconBtn({link}) {
 
   return (
     <a className="btn" href={link} target="_blank" rel="noopener noreferrer">
@@ -30,12 +30,8 @@ function LinkIconBtn({ link }) {
 
 export default function CourseItem({title, description, thumbnail, isFavorite, link}) {
 
-  const isEmpty = false;
-
-  if (isEmpty) {
-    return (
-      <p>강의가 없습니다.</p>
-    )
+  function handleFavorite() {
+    alert(isFavorite ? '좋아요' : '모르겠어요');
   }
   
   return (
@@ -47,7 +43,7 @@ export default function CourseItem({title, description, thumbnail, isFavorite, l
       </div>
 
       <div className="course__icons">
-          <HeartIconBtn isFavorite={isFavorite} />
+          <HeartIconBtn isFavorite={isFavorite} onHeartClick={handleFavorite} />    {/* 핸들러 예시 */}
           {
             link && <LinkIconBtn link={link} />   /* 논리 연산자에 의해 link가 존재해야 a 태그(LinkIconBtn 컴포넌트) 랜더링 */
           }
