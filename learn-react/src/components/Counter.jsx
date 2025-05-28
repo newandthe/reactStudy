@@ -1,5 +1,17 @@
-export const Counter = () => {
-    // return ( // => return 문 생략 가능
-      <button>Counter</button>
-    // )
+// 일반적으로 사용
+import {useState} from "react";
+
+export default function Counter({ onTotal }) {
+
+  const [counter, setCounter] = useState(1);
+
+  const handleCounter = () => {
+    setCounter(counter + 1);
+    onTotal();
+  }
+
+  return (
+    <button onClick={handleCounter}>Counter: {counter}</button>
+  )
+
 }
