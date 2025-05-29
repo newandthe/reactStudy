@@ -246,8 +246,177 @@ JS 문법으로 값을 변경 시켜도 UI에 바로 반영되지 않음.
 => React에서 useState와 같이 "use"로 시작하는 다른 모든 함수를 훅이라고 하는데, useState는 컴포넌트별 저장소를 생성하는 리액트 훅
 => useState 사용 기본 양식: const [index, setIndex] = useState(0); -> const [변수, setter] = useState(초기 값); ([]는 배열 구조 분해로 배열로부터 값을 읽을 수 있게 함) : setter는 set으로 시작하는게 일반적인 규칙
 => 이는 컴포넌트 별로 인스턴스가 관리 됩니다.
-=> **
 
+* 랜더링 단계 이해하기 (with 리랜더링)
+- 랜더링 : 화면에 표시할 UI를 그리는 것
+=> 리액트에서는 화면에 표시할 UI(JSX)를 만들기 위해서는 컴포넌트를 호출해야함
+** 컴포넌트를 화면에 표시하는 과정
+ 1. 랜더링 트리거
+    리액트 컴포넌트가 랜더링을 시작하게 만드는 것
+    => ReactDOM.createRoot(). **render()** : render() 메소드로 초기 랜더링
+ 2. 컴포넌트 랜더링
+    => 리랜더링 초기 렌더링 이후 다양한 조건으로 리랜더링 (해당 하위 컴포넌트 모두) (state를 호출하여 관리 - 재호출 하는 것을 의미 - 변경된 DOM 노드가 있는지 계산하여)
+ 3. DOM에 커밋 (DOM 업데이트)
+    => 변경된 노드만 변경 반영 ( 해당 컴포넌트 내 변경 된 요소만 )
+
+** 렌더링은 DOM 업데이트를 의미하는 것이 아니다.
+   즉, 실제로 DOM 업데이트가 발생되지 않더라도 컴포넌트에서는 렌더링이 발생할 수 있다.
+
+** 리랜더링은 자주 반영되면 메모리 소모 및 비용 증가 -> 최적화 작업 필요 (하단은 조건)
+    1. **초기 렌더링 :** **`root.render(<App />);`** 메서드를 호출하면 렌더링이 발생됩니다.
+        - **예제코드**
+
+            ```jsx
+            import Image from './Image.js';
+            import { createRoot } from 'react-dom/client';
+
+            const root = createRoot(document.getElementById('root'))
+            root.render(<Image />);
+            ```
+
+    2. **상태(State) 변화**: 컴포넌트의 상태가 변경되면 해당 컴포넌트와 그 하위 컴포넌트가 리렌더링됩니다.
+        - **예제코드**
+
+            ```jsx
+            import React, { useState } from 'react';
+
+            function Counter() {
+              const [count, setCount] = useState(0);
+
+              const increment = () => {
+                setCount(count + 1); // 상태 변화 -> 리렌더링 발생
+              };
+
+              return (
+                <div>
+                  <p>Count: {count}</p>
+                  <button onClick={increment}>Increment</button>
+                </div>
+              );
+            }
+
+            export default Counter;
+
+            ```
+
+    3. **프롭스(Props) 변화**: 부모 컴포넌트에서 전달된 프롭스가 변경되면 자식 컴포넌트가 리렌더링됩니다.
+        - **예제코드**
+
+            ```jsx
+            import React, { useState } from 'react';
+
+            function Child({ value }) {
+              return <p>Value: {value}</p>;
+            }
+
+            function Parent() {
+              const [value, setValue] = useState(0);
+
+              const updateValue = () => {
+                setValue(value + 1); // 프롭스 변화 -> Child 컴포넌트 리렌더링
+              };
+
+              return (
+                <div>
+                  <Child value={value} />
+                  <button onClick={updateValue}>Update Value</button>
+                </div>
+              );
+            }
+
+            export default Parent;
+            ```
+
+    4. **부모 컴포넌트 리렌더링**: 부모 컴포넌트가 리렌더링되면 그 자식 컴포넌트도 리렌더링됩니다.
+        - **예제코드**
+
+            ```jsx
+            import React, { useState } from 'react';
+
+            function Child() {
+              console.log('Child rendered');
+              return <p>Child Component</p>;
+            }
+
+            function Parent() {
+              const [value, setValue] = useState(0);
+
+              const updateValue = () => {
+                setValue(value + 1); // 부모 컴포넌트 리렌더링 -> Child 컴포넌트도 리렌더링
+              };
+
+              return (
+                <div>
+                  <Child />
+                  <button onClick={updateValue}>Update Value</button>
+                </div>
+              );
+            }
+
+            export default Parent;
+            ```
+
+    5. **컨텍스트(Context) 변화**: 컨텍스트 값을 사용하는 컴포넌트는 해당 값이 변경될 때 리렌더링됩니다.
+        - **예제코드**
+
+            ```jsx
+            import React, { createContext, useContext, useState } from 'react';
+
+            const MyContext = createContext();
+
+            function Child() {
+              const value = useContext(MyContext);
+              return <p>Context Value: {value}</p>;
+            }
+
+            function Parent() {
+              const [value, setValue] = useState(0);
+
+              const updateValue = () => {
+                setValue(value + 1); // 컨텍스트 값 변화 -> Child 컴포넌트 리렌더링
+              };
+
+              return (
+                <MyContext.Provider value={value}>
+                  <Child />
+                  <button onClick={updateValue}>Update Context Value</button>
+                </MyContext.Provider>
+              );
+            }
+
+            export default Parent;
+
+            ```
+
+    6. **포스 업데이트(Force Update)**: `forceUpdate()` 를 호출하면 해당 컴포넌트가 강제로 리렌더링됩니다.
+        - **예제코드**
+
+            ```jsx
+            import React, { useState } from 'react';
+
+            function ForceUpdateExample() {
+              const [value, setValue] = useState(0);
+              const [, forceUpdate] = useState(); // forceUpdate 사용
+
+              const updateValue = () => {
+                setValue(value + 1); // 상태 변화로 리렌더링
+              };
+
+              const triggerForceUpdate = () => {
+                forceUpdate({}); // forceUpdate 호출 -> 강제 리렌더링
+              };
+
+              return (
+                <div>
+                  <p>Value: {value}</p>
+                  <button onClick={updateValue}>Update Value</button>
+                  <button onClick={triggerForceUpdate}>Force Update</button>
+                </div>
+              );
+            }
+
+            export default ForceUpdateExample;
+            ```
 
 
 

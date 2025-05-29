@@ -12,10 +12,11 @@ export default function Main() {
   return (
     <main>
       <h2>totalCounter: {total} </h2>
-      <Counter onTotal={handleTotal} />
-      <br/>
-      <br/>
-      <Counter onTotal={handleTotal} />
+      <Counter onTotal={handleTotal}/>
+      <hr/>
+      <Counter onTotal={handleTotal}/>
+      <hr/>
+      <Counter />
     </main>
   )
 }

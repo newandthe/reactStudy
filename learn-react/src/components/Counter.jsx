@@ -7,7 +7,9 @@ export default function Counter({ onTotal }) {
 
   const handleCounter = () => {
     setCounter(counter + 1);
-    onTotal();
+    if (onTotal) {
+      onTotal();
+    }
   }
 
   return (
