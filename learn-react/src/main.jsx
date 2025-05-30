@@ -1,11 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import AppCounter from "./AppCounter.jsx";
+import App from "./AppTodo.jsx";
 import './index.css'
-import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AppCounter />
-  </StrictMode>,
+    <App />
+  </StrictMode>
 )

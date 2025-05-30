@@ -1,8 +1,8 @@
-import './App.css'
+import './AppCourse.css'
 import CourseListCard from "./components/course/CourseListCard.jsx";
 import CourseForm from "./components/course/CourseForm.jsx";
 
-function App() {
+function AppCourse() {
 
   const items = [
     {
@@ -44,4 +44,4 @@ function App() {
   )
 }
 
-export default App
+export default AppCourse
