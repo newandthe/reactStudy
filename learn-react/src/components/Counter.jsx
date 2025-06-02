@@ -8,9 +8,9 @@ export default function Counter({ onTotal }) {
   console.log('[랜더링] Counter : ', counter);
 
   const handleCounter = () => {
-    setCounter(counter + 1);
-    setCounter(counter + 1);
-    setCounter(counter + 1);
+    setCounter((prevCounter) => prevCounter + 1);
+    setCounter((prevCounter) => prevCounter + 1);
+    setCounter((prevCounter) => prevCounter + 1);
     console.log('[함수호출] Counter : ', counter);
 
     if (onTotal) {
