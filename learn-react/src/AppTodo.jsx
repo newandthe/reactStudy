@@ -65,6 +65,18 @@ function AppTodo() {
     setTodos(nextTodos);
   }
 
+  const handleReverse = () => {
+
+    /* 리버스 예시 */
+    /*
+    const nextTodos = [...todos];
+    nextTodos.reverse();
+    setTodos(nextTodos);
+    */
+    setTodos(todos.toReversed()); // 원본 복제 없이 한줄로 처리 가능 (immutable)
+
+  }
+
 
   return (
     <div>
@@ -87,6 +99,9 @@ function AppTodo() {
         <button onClick={handleAddTodoByIndex}>{insertAt} 번째 추가</button>
       </div>
       <div>Preview: {todoText}</div>
+
+      <button onClick={handleReverse}>Reverse</button>
+
       <TodoList
         todos={todos}
         onDeleteTodo={handleDeleteTodo}
