@@ -8,11 +8,13 @@ function AppTodo() {
     {id: 1, text: "자바스크립트 공부하기", done: false },
   ]);
 
+  const [insertAt, setInsertAt] = useState(todos.length - 1);
+
   const handleTodoTextChange = (e) => {
     setTodoText(e.target.value);
   }
 
-  const handleApppTodo = () => {
+  const handleAppTodo = () => {
 
     const nextId = todos.length;
 
@@ -24,10 +26,23 @@ function AppTodo() {
     setTodoText('');  /* 기존 input 초기화 // null 및 uundefined는 동작 X */
 
   }
+  
+  const handleAddTodoByIndex = () => {
+    const nextId = todos.length;
+    const newTodos = [
+      // 삽입 지점 이전 항목
+        ...todos.slice(0, insertAt),
+      { id: nextId, text: todoText, done: false},
+      // 삽입 지점 이후 항목
+      ...todos.slice(insertAt)
+    ];
+    setTodos(newTodos);
+    setTodoText('');
+  }
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      handleApppTodo();
+      handleAppTodo();
     }
   }
 
@@ -54,13 +69,23 @@ function AppTodo() {
   return (
     <div>
       <h2>할일목록</h2>
-      <input id={"todoTextInput"}
-             type="text"
-             value={todoText}
-             onChange={handleTodoTextChange}
-             onKeyDown={handleKeyDown}
-      />
-      <button onClick={handleApppTodo}>추가</button>
+      <div>
+        <input id={"todoTextInput"}
+               type="text"
+               value={todoText}
+               onChange={handleTodoTextChange}
+               onKeyDown={handleKeyDown}
+        />
+        <button onClick={handleAppTodo}>추가</button>
+      </div>
+      <div>
+        <select value={insertAt} onChange={(e) => setInsertAt(e.target.value)}>
+          {todos.map((key, index) => (
+            <option key={key.id} value={index}>{index} 번째 </option>
+          ))}
+        </select>
+        <button onClick={handleAddTodoByIndex}>{insertAt} 번째 추가</button>
+      </div>
       <div>Preview: {todoText}</div>
       <TodoList
         todos={todos}
