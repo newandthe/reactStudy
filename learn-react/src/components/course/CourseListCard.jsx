@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import CourseItem from "./CourseItem.jsx";
 import Card from "../Card.jsx";
 
-export default function CourseListCard({title, items}) {
+export default function CourseListCard({title, items, onFavorite}) {
 
   const lastIndex = items.length - 1;
 
@@ -53,7 +53,7 @@ export default function CourseListCard({title, items}) {
         <div className="courses">
           { items.map((item, index) => (
             <Fragment key={item.id}>  {/* 여러개의 DOM 노드를 렌더링 해야하는경우 Fragment로 그룹화하여 사용 */}
-              <CourseItem{...item} />
+              <CourseItem {...item} onFavorite={onFavorite} />
               {index !== lastIndex && (<hr className="divider" />)}  {/* 조건부 랜더링으로 마지막 인덱스가 아닌 경우에만 노출 */}
             </Fragment>
           ) )}
