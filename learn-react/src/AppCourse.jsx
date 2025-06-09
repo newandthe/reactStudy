@@ -1,11 +1,12 @@
 import './AppCourse.css'
 import CourseListCard from "./components/course/CourseListCard.jsx";
 import CourseForm from "./components/course/CourseForm.jsx";
-import {useState} from "react";
+// import {useState} from "react";
+import { useImmer } from "use-immer";
 
 function AppCourse() {
 
-  const [items, setItems] = useState([
+  const [items, updateItems] = useImmer([
     {
       id: 0,
       title: '입문자를 위한, HTML&CSS 웹 개발 입문',
@@ -33,16 +34,20 @@ function AppCourse() {
   ]);
 
   const handleFavoriteChange = (id, isFavorite) => {
-    const newItems = items.map(item =>{
-      if(item.id === id) {
-        return {
-          ...item,
-          isFavorite
-        };
-      }
-      return item;
-    });
-    setItems(newItems);
+    updateItems((draft) => {
+      const targetItem = draft.find(item => item.id === id);
+      targetItem.isFavorite = isFavorite;
+    })
+    // const newItems = items.map(item =>{
+    //   if(item.id === id) {
+    //     return {
+    //       ...item,
+    //       isFavorite
+    //     };
+    //   }
+    //   return item;
+    // });
+    // setItems(newItems);
   }
 
   const favoriteItems = items.filter(item => item.isFavorite);    /* JS의 filter를 사용하여 items 배열 중 isFavorite가 true인 경우만 필터링 */
