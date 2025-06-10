@@ -1,44 +1,35 @@
-export default function todoReducer(todos, action) {
+export default function todoReducer(draft, action) {
   // type
   switch(action.type) {
     /* dispatch 라는 함수를 통해 필요한 변수들을 action 내 객체로 전달 받을 수 있음. */
 
     case 'added': {
       const { nextId, todoText } = action;
-      return [
-        ...todos,
-        { id: nextId, text: todoText }
-      ];
+      draft.push({ id: nextId, text: todoText, done: false });
+
+      break;  /* case 구문 특성 답게 break 혹은 return 필수 */
     }
     case 'added_index': {
       const { insertAt, nextId, todoText } = action;
-      return [
-        // 삽입 지점 이전 항목
-        ...todos.slice(0, insertAt),
-        { id: nextId, text: todoText, done: false},
-        // 삽입 지점 이후 항목
-        ...todos.slice(insertAt)
-      ];
+      draft.splice(insertAt, 0, { id: nextId, text: todoText, done: false});
+
+      break;
     }
     case 'delete': {
       const { deleteId } = action;
-      return todos.filter(item => item.id !== deleteId);
+      return draft.filter(item => item.id !== deleteId);  /* 원본 배열은 수정하지 않지만 반환을 하는 경우는 return 사용 무방 */
     }
     case 'done': {
-
       const { id, done } = action;
 
-      return todos.map(item => {
-        if (item.id === id) {
-          return { ...item, done };
-        }
+      const target = draft.find(item => item.id === id);
+      target.done = done;
 
-        return item;
-      });
+      break;
 
     }
     case 'reverse': {
-      return todos.toReversed();
+      return draft.toReversed();
     }
     default: {
       throw Error('알 수 없는 액션 타입: ' + action.type);
