@@ -169,7 +169,7 @@ export const Counter = () => {
 
 function Avatar({ person, size }) {  // ...}
 
- * 구조분해 할당
+ * 구조분해 할당 :  배열이나 객체의 속성을 해체하여 그 값을 개별 변수에 담을 수 있게 하는 JavaScript 표현식
 function Avatar(props) {
 	let person = props.person;
 	let size = props.size;  // ...
@@ -558,6 +558,22 @@ const arr = [1, 2, 3]; arr.reverse();
 const arr = [1, 2, 3]; arr2 = arr.toReversed();
 : arr = [1, 2, 3], arr2 = [3, 2, 1]
 위와 비슷하게 immer 라이브러리를 사용한다면 내부에서 배열을 복제하여 할당하기 때문에 불필요한 로직 추가가 필요 없어짐.
+
+* state 로직을 reducer로 관리하는 방법
+한 컴포넌트에서 state 업데이트가 여러 이벤트 핸들러로 분산 되어있는 경우가 잦다. (지금 까지의 커밋 기록)
+이 경우 컴포넌트를 관리하기 어려워 지고 .. 이를 해결하기 위해 state를 업데이트하는 모든 로직을 reducer를 사용해 컴포넌트 외부로 단일 함수로 "통합해 관리"할 수 있습니다.
+
+비즈니스 로직은 switch 문이 일반적
+
+  1. useState에서 useReducer로 변환하려면 이벤트 핸들러에서 action을 전달합니다.
+    1.1 주어진 state와 action에 대해 다음 state를 반환하는 reducer 함수를 작성합니다.
+    1.2 useState를 useReducer로 바꿉니다.
+  2. reducer를 사용하면 코드를 조금 더 작성해야 하지만 디버깅과 테스트에 도움이 됩니다.
+  3. reducer는 반드시 순수해야 합니다. (렌더링 중 실행되기 때문)
+  4. 각 action은 단일 사용자 상호작용을 설명해야 합니다.
+  5. 객체와 배열을 변경하는 스타일로 reducer를 작성하려면 Immer 라이브러리를 사용하세요.
+
+
 
 
 

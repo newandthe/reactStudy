@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import {useReducer, useState} from 'react';
 import './App.css'
 import TodoList from "./todo/TodoList.jsx";
+import todoReducer from "./reducer/todo-reducer.js";
 function AppTodo() {
+
   const [todoText, setTodoText] = useState('');
-  const [todos, setTodos] = useState([
+
+  const [todos, dispatch] = useReducer(todoReducer, [
     {id: 0, text: "HTML&CSS 공부하기", done: false },
     {id: 1, text: "자바스크립트 공부하기", done: false },
   ]);
@@ -14,29 +17,36 @@ function AppTodo() {
     setTodoText(e.target.value);
   }
 
+  // 1] 추가 added
   const handleAppTodo = () => {
 
+    dispatch({
+      type: 'added',
+      nextId: todos.length,
+      todoText
+    });
+    /*
     const nextId = todos.length;
 
     setTodos([
       ...todos,
       { id: nextId, text: todoText }
     ])
+    */
 
     setTodoText('');  /* 기존 input 초기화 // null 및 uundefined는 동작 X */
 
   }
-  
+
+  // 2] 인덱스 추가 added_index
   const handleAddTodoByIndex = () => {
-    const nextId = todos.length;
-    const newTodos = [
-      // 삽입 지점 이전 항목
-        ...todos.slice(0, insertAt),
-      { id: nextId, text: todoText, done: false},
-      // 삽입 지점 이후 항목
-      ...todos.slice(insertAt)
-    ];
-    setTodos(newTodos);
+
+    dispatch({
+      type: 'added_index',
+      insertAt: insertAt,
+      nextId: todos.length,
+      todoText
+    })
     setTodoText('');
   }
 
@@ -46,34 +56,31 @@ function AppTodo() {
     }
   }
 
+  // 3] 제거 delete
   const handleDeleteTodo = (deleteId) => {
     /* 중간에 있는 배열을 빼기 위해서는 filter, slice 함수가 유용하다. */
-    const newTodos = todos.filter(item => item.id !== deleteId);
-    setTodos(newTodos);
+    dispatch({
+      type: 'deleted',
+      deleteId: deleteId,
+    })
   }
 
+  // 4] 완료 처리 done
   const handleToggleTodo = (id, done) => {
     /* 기존 배열 안의 객체 속성을 변경 */
-    const nextTodos = todos.map(item => {
-      if (item.id === id) {
-        return { ...item, done };
-      }
-
-      return item;
-    })
-
-    setTodos(nextTodos);
+    dispatch({
+      type: 'done',
+      id,
+      done
+    });
   }
 
+  // 5] 리버스 reverse
   const handleReverse = () => {
 
-    /* 리버스 예시 */
-    /*
-    const nextTodos = [...todos];
-    nextTodos.reverse();
-    setTodos(nextTodos);
-    */
-    setTodos(todos.toReversed()); // 원본 복제 없이 한줄로 처리 가능 (immutable)
+    dispatch({
+      type: 'reverse'
+    })
 
   }
 
