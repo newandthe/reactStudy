@@ -1,0 +1,13 @@
+export default function Header({ darkMode, toggleDarkMode }) {
+
+  return (
+    // header--dark
+    <header className={`header ${darkMode ? 'header--dark-mode' : 'header--light'}`}>
+      <h1 className="header__title">헤더 컴포넌트</h1>
+      <button className="header__button" onClick={toggleDarkMode}>
+        {/* 다크 모드로 전환 */}
+        {darkMode ? '라이트 모드로 전환' : '다크 모드로 전환'}
+      </button>
+    </header>
+  );
+};
