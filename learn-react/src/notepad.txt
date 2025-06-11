@@ -586,7 +586,10 @@ isComposing 은 문장 완성 (한글의 경우 자음과 모음이 합쳐 지�
 https://gymcoding.notion.site/React-Context-API-d87d736253c948f99da19ab4f99e7eab
 부모 컴포넌트에서 자식 컴포넌트로 props로 정보를 전달했는데, 만약 중간에 수많은 컴포넌트를 거쳐야 전달해야 한다면 불필요하게 계속 전달 해야함.. => "prop drilling 현상"
 이를 ContextAPI를 사용하면 부모가 트리 내부 전체에, 심지어 멀리 떨어진 컴포넌트에조차 props를 제공 할 수 있게 된다.
-
+  ** 사용방법
+  1. Context 생성 : 초기 값 지정
+  2. Context 사용
+  3. Context 제공 : 1 에서 생성한 Context의 Provider 호출 및 초기 값 지정
 
 
 
