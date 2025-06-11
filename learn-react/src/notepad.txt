@@ -577,6 +577,10 @@ https://ko.react.dev/reference/react/useReducer
 
   + useImmerReducer를 사용하면 Immer와 마찬가지로 로직 내 객체를 생성하여 수정하기 때문에 직접 수정 가능하게 됩니다.
 
+* 한글 이슈로 이벤트가 두번 처리 되는 경우
+event.nativeEvent.isComposing 이 false 인 경우 수행하도록 로직 추가
+isComposing 은 문장 완성 (한글의 경우 자음과 모음이 합쳐 지는 경우)
++ event로 접근하여도 안나오는 경우 브라우저 이벤트 접근 방법은 event 하위의 nativeEvent 객체에 접근
 
 
 

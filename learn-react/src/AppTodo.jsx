@@ -52,8 +52,8 @@ function AppTodo() {
     setTodoText('');
   }
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+  const handleAddTodoOnEnter = (e) => {
+    if (e.key === 'Enter' && e.nativeEvent.isComposing === false) {
       handleAppTodo();
     }
   }
@@ -95,7 +95,7 @@ function AppTodo() {
                type="text"
                value={todoText}
                onChange={handleTodoTextChange}
-               onKeyDown={handleKeyDown}
+               onKeyDown={handleAddTodoOnEnter}
         />
         <button onClick={handleAppTodo}>추가</button>
       </div>
