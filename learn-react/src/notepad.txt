@@ -605,6 +605,37 @@ https://gymcoding.notion.site/React-Context-API-d87d736253c948f99da19ab4f99e7eab
 => *** refactor-Reducer&ContextAPI 브랜치 참고
 
 
+* Hooks & 라이프 사이클
+React Hook ? : 함수형 컴포넌트에서 상태 관리 및 라이플 사이클 메서드를 사용할 수 있게 해주는 함수들
+ex) useState, useContext, useEffect
+
+리액트 훅의 준수해야하는 규칙 : https://gymcoding.notion.site/Hooks-1bc5a5cc2d41465e96c7227f8761980d
+  1. 반복문, 조건문, 중첩된 함수 내에서 훅 호출 금지, 최상위에서 훅 호출
+  2. 훅은 리액트 함수 내에서만 호출해야 한다. (일반 함수에서 사용 금지), 커스텀 훅에서 훅 호출 가능
+
+리액트의 라이프사이클 이란 ?
+=> 컴포넌트가 생성되어 DOM에 Insert, Update, Delete 까지의 일련의 과정
+   함수형 컾모넌트에서는 "useEffect" 훅을 사용하여 이러한 라이프사이클을 관리
+
+** useEffect
+마운트 : 컴포넌트가 처음 렌더링 될 때 실행
+업데이트 : 컴포넌트의 상태나 속성이 변경될 때 실행
+언마운트 : 컴포넌트가 DOM에서 제거될 때 실행
+
+ex)
+import React, { useEffect } from 'react';
+
+function MyComponent() {
+  useEffect(() => {
+    console.log('컴포넌트가 마운트되었습니다.');
+
+    return () => {
+      console.log('컴포넌트가 언마운트될 예정입니다.');
+    };
+  }, []); // 빈 배열: 한 번만 실행
+
+  return <div>안녕하세요!</div>;
+}
 
 
 

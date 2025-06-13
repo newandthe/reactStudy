@@ -1,6 +1,17 @@
 import {useTodosDispatch} from "../context/TodoContext.jsx";
+// import {useEffect} from "react";
 
 export default function TodoItem({ item }) {
+
+  // useEffect(() => {
+  //   console.log('컴포넌트 마운트 이후 수행될 로직');
+  //
+  //   return () => {
+  //     console.log('컴포넌트 언마운트 이후 수행될 로직');
+  //   }
+  //
+  // }, [item.done]);
+
 
   const dispatch = useTodosDispatch();
 
