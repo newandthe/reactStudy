@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {forwardRef, useEffect, useRef, useState} from "react";
 
 let counter = 0;
 
@@ -24,7 +24,8 @@ function ButtonCounter() {
 
 }
 
-function Form() {
+/* 커스텀 컴포넌트 */
+const MyForm = forwardRef((props, ref) => {   // 여기서 ref는 원하는 DOM 요소에 ref 속성으로 지정해주면 된다.
 
   const [form, setForm] = useState({
     title: '제목',
@@ -76,8 +77,32 @@ function Form() {
     }
   }, []); /* 가장 첫 랜더링 만 수행 */
 
+  const [isChanged, setIsChanged] = useState(false);
+  const prevForm = useRef(null);    /* 초기 랜더링 시의 데이터 */
+
+  useEffect(() => {
+    prevForm.current = { ...form }; // 서버에서 Fetch 가정
+
+    console.log('formRef: ', formRef);
+  }, []);
+
+  /* form 이 변경될 때 마다 Call Back */
+  useEffect(() => {
+
+    // 초기 값과 비교 로직
+    const hasChanged = (
+      prevForm.current.title !== form.title ||
+      prevForm.current.author !== form.author ||
+      prevForm.current.content !== form.title.content
+    )
+
+    setIsChanged(hasChanged);
+  }, [form]);
+
+  const formRef = useRef(null);
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form ref={ref} onSubmit={handleSubmit}>
       <fieldset>
         <legend>글쓰기</legend>
         <input ref={titleInputRef} name={"title"} placeholder={"제목"} value={form.title} onChange={handleForm}/>
@@ -86,15 +111,21 @@ function Form() {
         <hr/>
         <textarea ref={contentTextareaInputRef} name={"content"} placeholder={"내용"} value={form.content} onChange={handleForm}/>
         <hr/>
-        <button>button</button>
+        <button disabled={!isChanged}>button</button>
         <hr/>
       </fieldset>
     </form>
   )
 
-}
+});
 
 export default function AppRef() {
+
+  const myFormRef = useRef(null);
+
+  useEffect(() => {
+    console.log('myFormRef: ', myFormRef);
+  }, []);
 
   return (
     <>
@@ -103,7 +134,7 @@ export default function AppRef() {
       <ButtonCounter/>
 
       <h2>Form</h2>
-      <Form />
+      <MyForm ref={myFormRef}/>
     </>
   )
 
