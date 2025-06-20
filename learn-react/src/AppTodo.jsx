@@ -1,4 +1,4 @@
-import './App.css'
+// import './App.css'
 import TodoList from "./todo/TodoList.jsx";
 import AddTodo from "./todo/AddTodo.jsx";
 import {TodoProvider} from "./context/TodoContext.jsx";
