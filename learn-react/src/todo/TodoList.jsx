@@ -1,6 +1,6 @@
 import TodoItem from "./TodoItem.jsx";
 import {useTodos} from "../context/TodoContext.jsx";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 
 function TodoList() {
 
@@ -26,7 +26,8 @@ function TodoList() {
     }
   }
 
-  const { totalCount, doneCount } = getStatsCount();
+  /* useMemo 에 의해 재 계산 연산을 줄일 수 있음. 의존된 todos가 변경이 될 때에만 리 렌더링이 발생 */
+  const { totalCount, doneCount } = useMemo(() => getStatsCount(), [todos]);
 
   return (
     <>
