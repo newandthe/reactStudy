@@ -1,7 +1,10 @@
 import {useTodosDispatch} from "../context/TodoContext.jsx";
+import {memo} from "react";
 // import {useEffect} from "react";
 
-export default function TodoItem({ item }) {
+export default memo( function TodoItem({ item }) {
+
+  /* 기존 List의 항목 중 하나만 바꾸더라도 모든 항목에 대해서 리 렌더링이 모두 발생 하였으나, memo 캐싱을 통한 해당 item에 대해서만 리렌더링하도록 변경 */
 
   // useEffect(() => {
   //   console.log('컴포넌트 마운트 이후 수행될 로직');
@@ -45,4 +48,4 @@ export default function TodoItem({ item }) {
     <button onClick={() => handleDeleteTodo(item.id)}>X</button>  {/* 항목 제거 버튼 */}
     </label>
   )
-}
+} );

@@ -1,6 +1,6 @@
-import {useState, memo, useMemo} from "react";
+import {useState, memo, useMemo, useCallback} from "react";
 // 메모이제이션이 적용되지 않은 컴포넌트
-const RegularComponent = ({ count, items = [] }) => {
+const RegularComponent = ({ count, items = [], onCount }) => {
   console.log('RegularComponent 렌더링');
 
   return (
@@ -10,12 +10,13 @@ const RegularComponent = ({ count, items = [] }) => {
       <ul>
         {items.map(item => (<li key={item.id}>{item.text}</li>))}
       </ul>
+      <button onClick={onCount}>카운트 증가</button>
     </fieldset>
   );
 };
 
 // 메모이제이션이 적용된 컴포넌트
-const MemoizedComponent = memo(({ count, items = [] }) => {
+const MemoizedComponent = memo(({ count, items = [], onCount }) => {
   console.log('MemoizedComponent 렌더링');
   return (
     <fieldset>
@@ -24,6 +25,7 @@ const MemoizedComponent = memo(({ count, items = [] }) => {
       <ul>
         {items.map(item => (<li key={item.id}>{item.text}</li>))}
       </ul>
+      <button onClick={onCount}>카운트 증가</button>
     </fieldset>
   );
 });
@@ -41,6 +43,12 @@ export default function AppMemo() {
     ]
   }, []);
 
+  const beginnerCourses = useMemo(() => {
+    return courses.filter((course) => course.level === 0);
+  }, [courses]);
+
+  // const handleCount = () => setCount(count + 1); /* 메모이제이션이 적용되지 않아 메모이제이션 컴포넌트도 재 렌더링 */
+  const handleCount = useCallback(() => setCount(count + 1), [count]);    /* 메모이제이션 적용 완료로 메모이제이션 컴포넌트 재 렌더링하지 않음 */
 
 
   /* 주의 obj는 primitive 타입이 아니라 같은 내용을 가진 각각의 obj1 !== obj2 (바라보는 주소 값이 달라서..) 새로운 객체를 생성해서 사용하는 경우 useMemo를 사용해야함 */
@@ -73,8 +81,8 @@ export default function AppMemo() {
       <button onClick={() => setCount(count + 1)}>카운트 증가</button>
       <button onClick={() => setOtherState(otherState + 1)}>기타 상태 변경</button>
       <hr />
-      <RegularComponent count={count} items={courses} />
-      <MemoizedComponent count={count} items={courses} />
+      <RegularComponent count={count} items={beginnerCourses} onCount={handleCount} />
+      <MemoizedComponent count={count} items={beginnerCourses} onCount={handleCount} />
     </div>
   )
 }
