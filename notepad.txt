@@ -687,3 +687,9 @@ ESLint: 코드 품질 및 일관성 유지 도구 (코드 검사기로 코드에
 * Styled Component 란 ?
 CSS를 자바 스크립트 내에서 작성할 수 있도록 도와주는 라이브러리
 사용하게 될 경우 스타일을 컴포넌트 내에 작성 할 수 있어 가독성 및 유지보수성 향상에 도움을 주게 됨. props 를 활용하는 등 동적인 스타일을 쉽게 적용이 가능하게 된다.
+
+* Twailwind CSS
+유틸리티 클래스 기반의 프레임 워크로 개발자의 클래스 속성에 클래스 명을 적용 함으로써 CSS 프레임 워크
+(semantic ui 와 동일) (https://tailwindcss.com 참고)
+추후 필요시 강의 내 쿠폰코드 적용하여 강의 페이지 참고하기 : https://inf.run/aygxn
+  ** 버전에 따른 설치 참고 공식 페이지 (https://tailwindcss.com/docs/guides/vite)
