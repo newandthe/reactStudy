@@ -693,3 +693,29 @@ CSS를 자바 스크립트 내에서 작성할 수 있도록 도와주는 라이
 (semantic ui 와 동일) (https://tailwindcss.com 참고)
 추후 필요시 강의 내 쿠폰코드 적용하여 강의 페이지 참고하기 : https://inf.run/aygxn
   ** 버전에 따른 설치 참고 공식 페이지 (https://tailwindcss.com/docs/guides/vite)
+
+* Materail UI (MUI)
+리액트에서 인기 있는 UI 프레임 워크 중 하나로 구글의 Material 디자인 원칙을 기반으로 컴포넌트 디자인 제공
+
+* CSS 라이브러리 고르는 기준 (장단점 기준으로 판단)
+https://gymcoding.notion.site/CSS-2c3f4d7db4224afaba5612d16a4ec77b?pvs=25
+
+* React Router
+원하는 콘텐츠를 보여줄 수 있는 클라이언트 사이드 라우트 라이브러리
+라우트 설정 및 또 하나의 Outlet으로 통한 children으로 맵핑된 컴포넌트는 상위 컴포넌트에 위치한 Outlet에 위치
+이렇게 중첩된 라우터 설정을 "Nested Route" 설정 이라고 한다.
+
+ ** Declarative Mode (선언적 모드)
+  가장 기본적인 라우팅만 제공
+  <BrowserRouter> 사용
+  URL 매칭, 네비게이션, Link 컴포넌트 등 기본 기능
+ ** Data Mode (데이터 모드)
+  Declarative + 데이터 로딩 기능 추가
+  createBrowserRouter() 사용 ← 강의와 동일한 방식!
+  loader, action, useFetcher 등 제공
+ ** Framework Mode (프레임워크 모드)
+  Data Mode + Vite 플러그인 통합
+  타입 안전성, 코드 스플리팅, SSR 등 모든 기능
+
+(레이아웃은 변경되지 않고 메인 콘텐츠만 변경)
+(최신 스펙에 따라 메인 홈페이지 변경점 따라 가야함)
