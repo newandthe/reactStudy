@@ -9,6 +9,7 @@ import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import App from './App.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
+import CanvasDetail from './pages/CanvasDetail.jsx';
 
 const router = createBrowserRouter([
   /* / 로 접근하였을 경우 보여줄 요소 */
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: 'contact',
         element: <Contact />,
+      },
+      {
+        path: 'canvases/:paramsId' /* : 콜론을 이용하면 동적 할당 가능 */,
+        element: <CanvasDetail />,
       },
     ],
     errorElement: (
