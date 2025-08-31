@@ -704,6 +704,7 @@ https://gymcoding.notion.site/CSS-2c3f4d7db4224afaba5612d16a4ec77b?pvs=25
 원하는 콘텐츠를 보여줄 수 있는 클라이언트 사이드 라우트 라이브러리
 라우트 설정 및 또 하나의 Outlet으로 통한 children으로 맵핑된 컴포넌트는 상위 컴포넌트에 위치한 Outlet에 위치
 이렇게 중첩된 라우터 설정을 "Nested Route" 설정 이라고 한다.
+(Outlet: 중첩 라우트 설정 시, 부모 컴포넌트 안에 자식 라우트의 요소가 렌더링될 위치를 지정하는 컴포넌트)
 
  ** Declarative Mode (선언적 모드)
   가장 기본적인 라우팅만 제공
