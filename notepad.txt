@@ -719,3 +719,10 @@ https://gymcoding.notion.site/CSS-2c3f4d7db4224afaba5612d16a4ec77b?pvs=25
 
 (레이아웃은 변경되지 않고 메인 콘텐츠만 변경)
 (최신 스펙에 따라 메인 홈페이지 변경점 따라 가야함)
+
+* React Router DOM API : 페이지 컴포넌트 간 이동
+ ** useNavigate Hook (Programming 방식)
+ ** Link Hook
+ ** NavLink : 현재 활성화 된 링크 예제
+ ** useRouteError : 잘못된 uri 요청한 경우 에러 페이지로 이동하는 방법
+ *** 상세 스펙은 reactrouter.com 에 상세 기술

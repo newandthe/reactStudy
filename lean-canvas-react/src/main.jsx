@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import App from './App.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
 
 const router = createBrowserRouter([
   /* / 로 접근하였을 경우 보여줄 요소 */
@@ -29,6 +30,9 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
     ],
+    errorElement: (
+      <ErrorPage />
+    ) /* ErrorPage 예외 처리 : 상세 스펙은 reactrouter.com 에 상세 기술 */,
   },
   /* ... */
 ]);
