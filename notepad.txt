@@ -727,3 +727,7 @@ https://gymcoding.notion.site/CSS-2c3f4d7db4224afaba5612d16a4ec77b?pvs=25
  ** NavLink : 현재 활성화 된 링크 예제
  ** useRouteError : 잘못된 uri 요청한 경우 에러 페이지로 이동하는 방법
  *** 상세 스펙은 reactrouter.com 에 상세 기술
+
+* 로컬에 API 테스트를 위한 JSON server 설치
+npm install json-server 이후 폴더 생성 및 json 데이터 파일 생성
+이후 터미널에 npx json-server {경로 및 json 파일} -p {원하는 포트번호}

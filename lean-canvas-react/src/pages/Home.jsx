@@ -1,6 +1,18 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function Home() {
+  async function fetchData() {
+    const data = await fetch('http://localhost:8000/canvases')
+      .then(res => res.json())
+      .catch(err => console.log(err));
+    console.log(data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div>
       HomePage !
